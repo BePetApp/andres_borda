@@ -1,0 +1,35 @@
+#facebook {
+    background: #4267B2;
+}
+#facebook:hover{
+    background: #2b4476;
+    text-shadow: 3px 3px 2px black;
+    transition: .2s ease;
+}
+
+#youtube{
+    background: #FF0000;
+}
+#youtube:hover{
+    background: #b40101;
+    text-shadow: 3px 3px 2px black;
+    transition: .5s ease;
+}
+
+#twitter{
+    background: #1DA1F2;
+}
+#twitter:hover{
+    background: #167ab8;
+    text-shadow: 3px 3px 2px black;
+    transition: .5s ease;
+}
+
+#reddit{
+    background: #FF4500;
+}
+#reddit:hover{
+    background: #bf3300;
+    text-shadow: 3px 3px 2px black;
+    transition: .5s ease;
+}
