@@ -1,9 +1,18 @@
+/* Index Principal : */ 
+
 footer{
     background: black;
 }
 
 footer > div{
     min-width: 200px;
+}
+
+/* Clases */
+
+.articles{
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 }
 
 .special{
@@ -13,6 +22,8 @@ footer > div{
 .contact{
     color: #b8b8b8;
 }
+
+/* Ids */
 
 #facebook {
     background: #4267B2;
