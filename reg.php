@@ -1,3 +1,15 @@
+<?php 
+    $conn = new mysqli("127.0.0.1", "root", null, "blog", 3308, "127.0.0.1:3308");
+    $query = "SELECT * FROM avatares";
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $res = mysqli_query($conn, $query)
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,35 +28,44 @@
 <body>
     <div class="container">
         <div class="registro">
-            <form action="" method="post">
+            <form action="thanks.php" method="post">
                 <h1><span class="red">Burogu</span> Blog</h1>
                 <div class="formulario">
                     <div>
                         <p>Digita tu nombre:</p>
-                        <input type="text" name="">
+                        <input type="text" name="Reg_name" placeholder="Tu nombre" required>
                     </div>
                     <div>
                         <p>Digita tu apellido: </p>
-                        <input type="text" name="">
+                        <input type="text" name="Reg_apl" placeholder="Tu apellido">
                     </div>
                     <div>
                         <p>Nickname: </p>
-                        <input type="text">
+                        <input type="text" name="Reg_Nick" placeholder="Tu nick" required>
                     </div>
                     <div>
                         <p>Email:</p>
-                        <input type="email">
+                        <input type="email" name="Reg_Email" placeholder="Email" required>
                     </div>
                     <div>
                         <p>Contraseña: </p>
-                        <input type="password" name="">
+                        <input type="password" name="Reg_Pass" placeholder="Password" required>
                     </div>
                     <div>
                         <p>Repite la contraseña: </p>
-                        <input type="password" name="">
+                        <input type="password" name="Reg_Pass_1" placeholder="Password" required>
                     </div>
                     <div>
                         <p>Selecciona tu avatar: </p>
+                        <select name="Reg_av">
+                        <?php 
+                            while($row = mysqli_fetch_array($res))
+                            {
+                                echo '<option value="' . $row[0] . '">' . $row[1] ."</option>";
+                            }
+                            mysqli_close($conn);
+                        ?>
+                        </select>
                     </div>
                 </div>
                 <button>Enviar</button>
