@@ -1,9 +1,5 @@
 <?php 
-    $conn = new mysqli("127.0.0.1", "root", null, "blog", 3308, "127.0.0.1:3308");
-
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+    include 'connection.php';
 
     if (isset($_POST['Enviar']))
     {
@@ -12,7 +8,6 @@
         $avatar = $_POST['Reg_av'];
 
         if ($_POST['Reg_Pass'] != $_POST['Reg_Pass_1']){
-            echo '1';
             ?>
                 <div class="text-center text-white bg-red-500 p-5 fixed w-full bottom-2 z-50">
                     Oops, Las contraseñas no coinciden. Por favor, intentalo de nuevo.

@@ -12,21 +12,9 @@
 <body>
     <div class="container-fluid"  style="background: #212529;">
         <!-- Barra de Navegacion -->
-        <div class="flex items-center text-white overflow-x-auto" style="background: #131313;">
-            <div class="flex-1" style="min-width: 60px;">
-                <img src="./Img/image.png" alt="logo" class="w-16 m-2">
-            </div>
-            <div class="m-2">
-                Inicio
-            </div>
-            <div class="m-2">
-                Articulos
-            </div>
-            <div class="m-2 flex no-wrap gap-2">
-                <button id="buttonmodal" class="bg-red-500 text-white p-2 rounded-full hover:bg-red-700" type="button">LogIn</button>
-                <button onclick="window.location.href='./pages/reg.php';" class="bg-red-500 text-white p-2 rounded-full hover:bg-red-700" type="button">Registrate</button>     
-            </div>
-        </div>
+        <?php 
+            include './pages/navbar.php';
+        ?>
         <!-- FIn Barra de Navegacion -->
         
         <!-- Header -->
@@ -150,11 +138,11 @@
                     <form method="post" autocomplete="off">
                         <div class="flex flex-col gap-2 my-3">
                             <label for="">Nickname</label>
-                            <input type="text" name="Log_Nick" class="text-black p-1">
+                            <input type="text" name="Log_Nick" class="text-black p-1" required>
                         </div>
                         <div class="flex flex-col gap-2 my-3">
                             <label for="">Password</label>
-                            <input type="password" name="Log_pass" class="text-black p-1">
+                            <input type="password" name="Log_Pass" class="text-black p-1" required>
                         </div>
                         <label class="text-xs"><input type="checkbox" name="" id=""> Recordar Datos</label>
                         <div class="grid justify-items-end">
@@ -185,6 +173,5 @@
 
     button.addEventListener('click',()=>modal.classList.add('scale-100'))
     closebutton.addEventListener('click',()=>modal.classList.remove('scale-100'))
-
 </script>
 </html>
