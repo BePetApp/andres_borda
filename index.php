@@ -13,7 +13,7 @@
     <div class="container-fluid"  style="background: #212529;">
         <!-- Barra de Navegacion -->
         <?php 
-            include './pages/navbar.php';
+            include './pages/landing/navbar.php';
         ?>
         <!-- FIn Barra de Navegacion -->
         
@@ -127,7 +127,7 @@
         <!-- Fin Contenido -->
     </div>
 
-
+<!-- Modal LogIn -->
     <div id="modal"
     class="fixed top-0 left-0 w-screen h-screen flex items-center justify-center bg-gray-900 bg-opacity-50 transform scale-0 transition-transform duration-300">
     <!-- Modal content -->

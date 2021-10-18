@@ -1,5 +1,5 @@
 <?php 
-    include 'connection.php';
+    require '../connection.php';
     
     $query = "SELECT * FROM avatares";
     $res = mysqli_query($conn, $query)
@@ -14,18 +14,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="../css/reg.css">
+    <link rel="stylesheet" href="../../css/reg.css">
     <script src="https://kit.fontawesome.com/fe08a25bb7.js" crossorigin="anonymous"></script>
 
     <!-- Google font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
     <title>Registrate</title>
 </head>
 <body>
-    <div class="container pb-20">
-        <div class="registro mt-2">
+    <div class="container pb-20 mx-auto">
+        <div class="registro mt-2 mx-auto">
             <form method="post" autocomplete="off">
                 <h1><span class="red">Burogu</span> Blog</h1>
                 <div class="formulario">
@@ -69,7 +69,7 @@
                 <div class="buttons">
                     <!-- <button value="Enviar">Enviar</button> -->
                     <input type="submit" name="Enviar" value="Enviar" class="text-white p-4 bg-red-500 cursor-pointer hover:bg-red-800">
-                    <button onclick="window.location.href='../index-remodel.html';" class="text-white p-4 bg-red-500 cursor-pointer hover:bg-red-800">Volver</button>
+                    <a href="../../" class="text-white p-4 bg-gray-500 cursor-pointer hover:bg-gray-800">Volver</a>
                 </div>
             </form>
         </div>

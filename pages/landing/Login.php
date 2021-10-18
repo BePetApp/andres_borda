@@ -1,5 +1,5 @@
 <?php
-    include 'connection.php';
+    include './pages/connection.php';
 
     if (isset($_POST['Log_Enter']))
     {
@@ -45,7 +45,7 @@
                 include 'nbfalse.php';
                 ?>
                     <div class="text-center text-white bg-red-500 p-5 fixed w-full bottom-2 z-50">
-                        Oh no.
+                        Oh no. Ha sucedido un error interno. :(
                     </div>
                 <?php
             }
