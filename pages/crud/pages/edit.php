@@ -8,8 +8,8 @@
 	// Esto con el fin de evitar algun error de sintaxis de sql en $sqlEditReg
 	// Podria surguir un error a la hora de validar los datos pues, como se cargan los valores en la misma
 	// paguina, $_POST['RegId'] seria null generando un error. En resumen, asi lo puedo controlar
-	if (isset($_POST['RegId'])){
-		$idAModificar = $_POST['RegId'];
+	if (isset($_GET['RegId'])){
+		$idAModificar = $_GET['RegId'];
 	}
 	else{
 		$idAModificar = "empty";
@@ -20,7 +20,7 @@
 		$sqlEditQuery = "SELECT nombre, apellido, nickname, email FROM usuarios WHERE id = $idAModificar";
 		$sqlEditQueryRes = mysqli_query($conn, $sqlEditQuery);
 
-		if ($sqlEditQueryRes):
+		if ($sqlEditQueryRes && mysqli_num_rows($sqlEditQueryRes) > 0):
 			$data = mysqli_fetch_assoc($sqlEditQueryRes);
 
 			$oldData = array(
@@ -39,7 +39,9 @@
 		<p class="text-center font-bold">-- Modifica solamente los campos que quieras alterar --</p>
 	
 		<!-- Formulario -->
-		<form method="POST" autocomplete="off">
+		<!-- Enviamos los datos a la misma pagina (y no lo dejamos vacio - el /action/ )
+				para vaciar el Array $_GET[] -->
+		<form action="./edit.php" method="POST" autocomplete="off">
 			<!-- Enviamos el ID del usuario -->
 			<input type="hidden" name="Id" value="<?php echo $idAModificar?>">
 
@@ -80,12 +82,22 @@
 <!-- Si sucede algun problema con la consulta -->
 <?php
 		else:
-			echo "<div class=\"fixed top-2 w-full p-3 text-white text-center bg-red-500 z-50\">Error en la consulta</div>";
+			?>
+			<div class="fixed top-2 w-full p-5 text-white text-center bg-red-500 z-50 hover:bg-red-700">
+				<p class="mb-4">Error en la actualizacion - ID </p>
+				<a href="../crud.php" class="p-4 bg-gray-600 rounded hover:bg-gray-800">Regresar</a>
+			</div>
+			<?php
 		endif;
 	elseif (isset($_POST['Id'])):
 		require 'validarEdit.php';
 	else:
-		echo "<div class=\"fixed top-2 w-full p-3 text-white text-center bg-red-500 z-50\">Error en la consulta</div>";
+		?>
+		<div class="fixed top-2 w-full p-5 text-white text-center bg-red-500 z-50 hover:bg-red-700">
+			<p class="mb-4">Error en la actualizacion</p>
+			<a href="../crud.php" class="p-4 bg-gray-600 rounded hover:bg-gray-800">Regresar</a>
+		</div>
+		<?php
 	endif
 ?>
 </body>
