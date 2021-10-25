@@ -53,17 +53,21 @@
                         <p>Repite la contraseña: </p>
                         <input type="password" name="Reg_Pass_1" placeholder="Password" required>
                     </div>
-                    <div>
-                        <p>Selecciona tu avatar: </p>
-                        <select name="Reg_av" class="text-black">
-                        <?php 
-                            while($row = mysqli_fetch_array($res))
-                            {
-                                echo '<option value="' . $row[0] . '">' . $row[1] ."</option>";
-                            }
-                            mysqli_close($conn);
-                        ?>
-                        </select>
+                </div>
+                <div class="py-3">
+                    <p>Selecciona tu avatar: </p>
+                    
+                    <div class="flex gap-x-1 gap-y-2 text-center justify-between flex-wrap">
+                        
+                    <?php 
+                        while($row = mysqli_fetch_array($res))
+                        {
+                            echo "<div class=\"p-2 text-center avatar\">";
+                            echo "<input class=\"cursor-pointer\" type=\"radio\" name=\"Reg_av\" value=\"$row[0]\" required>";
+                            echo "<img class=\"mx-auto\" src=\"$row[1]\" alt=\"avatar\"></div>";
+                        }
+                        mysqli_close($conn);
+                    ?>
                     </div>
                 </div>
                 <div class="buttons">

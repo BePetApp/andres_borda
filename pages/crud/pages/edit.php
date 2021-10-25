@@ -98,7 +98,8 @@
 			<a href="../crud.php" class="p-4 bg-gray-600 rounded hover:bg-gray-800">Regresar</a>
 		</div>
 		<?php
-	endif
+	endif;
+	mysqli_close($conn);
 ?>
 </body>
 </html>

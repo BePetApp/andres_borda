@@ -33,7 +33,7 @@ h1{
     margin-bottom: 1rem;
 }
 
-.formulario div{
+.formulario > div{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -46,7 +46,6 @@ h1{
     background: none;
     border: none;
     border-bottom: 1px solid rgb(239, 68, 68);
-    width: 99%;
     transition: .3s;
 }
 
@@ -54,6 +53,17 @@ h1{
     border: 1px solid rgb(239, 68, 68);
     box-shadow: 0px 0px 10px #131313;
     outline: none;
+}
+
+.avatar {
+    border: 2px solid rgb(239, 68, 68);
+    background-color: #191919;
+    width: 70px;
+}
+
+.avatar > img{
+    max-width: 50px;
+    max-height: 50px;
 }
 .buttons{
     display: flex;

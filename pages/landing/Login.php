@@ -55,4 +55,6 @@
     {
         include 'nbfalse.php';
     }
+
+    mysqli_close($conn);
 ?>

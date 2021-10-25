@@ -72,6 +72,7 @@
 		</div>
 		<?php
 	endif;
+	mysqli_close($conn);
 ?>
 </body>
 </html>

@@ -34,6 +34,7 @@
         </div>
         <div class="flex justify-between items-center header mx-auto my-4">
             <a class="py-1 px-2 bg-blue-500 rounded hover:bg-blue-800" href="./crud.php">RESET</a>
+            <a class="py-1 px-2 bg-green-500 rounded hover:bg-green-800" href="pages/avatar.php">Añadir/Borrar avatar</a>
             <form method="post" autocomplete="off">
                 Busca: 
                 <input type="text" name="SearchReg" placeholder="Search" class="p-1 rounded text-gray-500 bg-gray-800 outline-none focus:bg-gray-900 focus:text-white">
@@ -82,6 +83,7 @@
                         </tr>
                         <?php
                     }
+                mysqli_close($conn);
                 ?>
             </tbody>
             </table>

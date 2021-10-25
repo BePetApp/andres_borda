@@ -61,3 +61,22 @@ body {
     border-radius: 5px 5px 0 0;
     box-shadow: 0 0 10px rgba(111, 111, 111, .7);
 }
+
+
+/* vatares: 
+avatar -> Div registro de un nuevo avatar 
+avatars -> div con las imagenes de los avatares 
+*/
+
+.avatar, .avatars{
+    box-shadow: 0 0 10px rgba(111, 111, 111, .7);    
+}
+
+.avatars{
+    width: 70px;
+}
+
+.avatars > img{
+    max-width: 50px;
+    max-height: 50px;
+}
