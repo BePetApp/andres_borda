@@ -60,6 +60,7 @@
                     <div class="flex gap-x-1 gap-y-2 text-center justify-between flex-wrap">
                         
                     <?php 
+                    // Listamos los avatares con un while
                         while($row = mysqli_fetch_array($res))
                         {
                             echo "<div class=\"p-2 text-center avatar\">";
@@ -79,7 +80,7 @@
         </div>
     </div>
     <?php 
-        include 'validate_reg.php';
+        include './validate_reg.php';
     ?>
 </body>
 </html>

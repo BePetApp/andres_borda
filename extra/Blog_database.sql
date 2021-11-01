@@ -12,6 +12,11 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+
+-- Dumping database structure for blog
+CREATE DATABASE IF NOT EXISTS `blog` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `blog`;
+
 -- Dumping structure for table blog.articulos
 CREATE TABLE IF NOT EXISTS `articulos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -57,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `avatares` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `enlace` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
 
 -- Data exporting was unselected.
 
@@ -120,12 +125,14 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `apellido` varchar(30) DEFAULT NULL,
   `nickname` varchar(30) NOT NULL,
   `email` varchar(30) NOT NULL,
-  `password` varchar(30) NOT NULL,
+  `password` varchar(100) NOT NULL,
   `avatares_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `nickname` (`nickname`),
+  UNIQUE KEY `email` (`email`),
   KEY `fk_usuarios_avatares` (`avatares_id`),
   CONSTRAINT `fk_usuarios_avatares` FOREIGN KEY (`avatares_id`) REFERENCES `avatares` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 -- Data exporting was unselected.
 

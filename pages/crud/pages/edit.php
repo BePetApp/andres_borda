@@ -1,28 +1,37 @@
 <?php 
 	require '../../connection.php';
+	require '../../sessionValidate.php';
 	require 'head.php'; // <- Trae la funcion 'head' la cual escribe el head y el title 
 	
 	head('Actualizar registro'); // <- Aqui ponemos el nombre de la pagina
 
-	// El error producido al poner $idAModificar = "empty" es aproposito
-	// Esto con el fin de evitar algun error de sintaxis de sql en $sqlEditReg
-	// Podria surguir un error a la hora de validar los datos pues, como se cargan los valores en la misma
-	// paguina, $_POST['RegId'] seria null generando un error. En resumen, asi lo puedo controlar
+	/*
+	Para evitar problemas con el SQL controlamos el valor de $idAModificar:
+
+		Si esta seteado $_GET['RegId'] entonces $idAModificar tomara ese valor.
+		Si no, su valor sera "empty"
+	*/
 	if (isset($_GET['RegId'])){
 		$idAModificar = $_GET['RegId'];
 	}
 	else{
-		$idAModificar = "empty";
+		$idAModificar = 'empty';
 	}
 
+	// Si $idAModificar es empty significa que no hay datos en $_GET
+	// Tambien, si $idAModificar es empty, podria significar que se ha realizado una modificacion
 	if ($idAModificar != 'empty'):	
 
+		// Seleccionamos la informacion que podrá ser modificada
 		$sqlEditQuery = "SELECT nombre, apellido, nickname, email FROM usuarios WHERE id = $idAModificar";
 		$sqlEditQueryRes = mysqli_query($conn, $sqlEditQuery);
 
+		// Si la consulta nos devuelve un resultado con al menos una fila
+		// realizamos el procedimiento de edicion
 		if ($sqlEditQueryRes && mysqli_num_rows($sqlEditQueryRes) > 0):
 			$data = mysqli_fetch_assoc($sqlEditQueryRes);
 
+			// Datos actuales del usuario
 			$oldData = array(
 				'name' => $data['nombre'],
 				'apellido' => $data['apellido'],
@@ -39,9 +48,14 @@
 		<p class="text-center font-bold">-- Modifica solamente los campos que quieras alterar --</p>
 	
 		<!-- Formulario -->
-		<!-- Enviamos los datos a la misma pagina (y no lo dejamos vacio - el /action/ )
-				para vaciar el Array $_GET[] -->
+
 		<form action="./edit.php" method="POST" autocomplete="off">
+			<!-- 
+				Enviamos los datos del formulario a la misma pagina.
+				En todos los campos a modificar estará el valor actual de los datos del usuario. 
+				La idea es que se editen solamente los campos deseados
+			 -->
+
 			<!-- Enviamos el ID del usuario -->
 			<input type="hidden" name="Id" value="<?php echo $idAModificar?>">
 
@@ -89,8 +103,15 @@
 			</div>
 			<?php
 		endif;
+
+	// Si $_POST['Id'] esta seteado significa que se ha realizado una modificacion y se 
+	// han enviado los valores a editar.
 	elseif (isset($_POST['Id'])):
+
+		// El Update se realiza en validarEdit.php
 		require 'validarEdit.php';
+
+	// Si ocurre algún problema inesperado nos mostrará el siguiente mensaje de error
 	else:
 		?>
 		<div class="fixed top-2 w-full p-5 text-white text-center bg-red-500 z-50 hover:bg-red-700">
@@ -99,6 +120,8 @@
 		</div>
 		<?php
 	endif;
+
+	// Cerramos la conexión con MySql
 	mysqli_close($conn);
 ?>
 </body>

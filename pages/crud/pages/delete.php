@@ -1,22 +1,25 @@
 <?php 
 	require '../../connection.php';
+	require '../../sessionValidate.php';
 	require 'head.php';
 
 	head('Borrar Registro'); // <-- viene de head.php | pone el head en el archivo
 	echo "<body>";
 
-	// El error producido al poner $RegId = "empty" es aproposito
-	// Esto con el fin de evitar algun error de sintaxis de sql en $sqlDeleteReg
-	// Podria surguir un error a la hora de validar los datos pues, como se cargan los valores en la misma
-	// paguina, $_POST['delReg'] seria null generando un error. En resumen, asi lo puedo controlar
-	if(isset($_POST['delReg'])){
-		$RegId = $_POST['delReg'];
+	/*
+	Si no se envia ningún valor de algún id por $_POST, entonces 
+	se redireccionara a la pagina del CRUD
+	*/
+	if(!isset($_POST['delReg'])){
+		header('Location: ../crud.php');
 	}
 	else{
-		$RegId = "empty";
+		$RegId = $_POST['delReg'];
 	}
 
-	if ($RegId != 'empty' && !isset($_POST['confirmed'])):
+	// Si $RegID no es una cadena vacia y no está seteado $_POST['confirmed']
+	// se mostrará el formulario de confirmacion de eliminacion 
+	if ($RegId != '' && !isset($_POST['confirmed'])):
 		$nombre = $_POST['delname'];
 		$email = $_POST['delemail'];
 ?>
@@ -45,6 +48,8 @@
 		</div>
 	</div>
 <?php
+
+	// Si se confirma la eliminacion:
 	elseif (isset($_POST['confirmed'])):
 		$delete = "DELETE FROM usuarios WHERE id = $_POST[confirmed]";
 

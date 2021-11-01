@@ -1,6 +1,8 @@
 <?php 
 require '../../connection.php';
-  
+require '../../sessionValidate.php';
+
+// Seleccionamos todos los avatares, incluyendo su ID
 $query = "SELECT * FROM avatares";
 $res = mysqli_query($conn, $query)
 ?>
@@ -18,7 +20,7 @@ $res = mysqli_query($conn, $query)
 </head>
 <body>
 
-<!-- Este formulario recibe una imagen que será un avatar -->
+<!-- Este formulario recibe una imagen que será un avatar (Subimos un nuevo avatar)-->
   <div class="max-w-lg border-t-2 border-red-500 mx-auto my-5 text-white p-2 avatar">
     <form action="avatarValidate.php" method="post" enctype="multipart/form-data">
       <p class="p-2 text-center">Selecciona el <span class="text-red-500">NUEVO</span> avatar:</p>
@@ -30,6 +32,7 @@ $res = mysqli_query($conn, $query)
     </form>
   </div>
 
+  <!-- Hr Para separar los formularios -->
   <hr class="w-11/12 mx-auto pt-2 my-3 border-t-2 border-red-400">
 
   <!-- Este formulario es para eliminar uno de los avatares existentes  -->

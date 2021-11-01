@@ -1,6 +1,7 @@
 <?php
     require '../connection.php';
     require './pages/head.php';
+    require '../sessionValidate.php';
 	
 	head('Crud');
 
@@ -30,7 +31,7 @@
 <body>
     <div class="container mx-auto text-white">
         <div class="flex justify-between items-center header mx-auto my-4">
-            <div><h2 class="text-3xl py-2">Lista de Registros <span class="italic text-gray-500"><a href="../../index.php">Blog Burogu</a></span></h2></div>
+            <div><h2 class="text-3xl py-2">Lista de Registros <span class="italic text-gray-500 duration-300 hover:text-red-500"><a href="/Blog">Blog Burogu</a></span></h2></div>
         </div>
         <div class="flex justify-between items-center header mx-auto my-4">
             <a class="py-1 px-2 bg-blue-500 rounded hover:bg-blue-800" href="./crud.php">RESET</a>

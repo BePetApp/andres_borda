@@ -1,7 +1,12 @@
 <?php
     include './pages/connection.php';
+    session_start();
 
-    if (isset($_POST['Log_Enter']))
+    if (isset($_SESSION['status']) && $_SESSION['status'] == 1)
+    {
+        include 'nbtrue.php';
+    }
+    elseif (isset($_POST['Log_Enter']))
     {
         // User credentials
         $userNick = $_POST['Log_Nick'];
@@ -25,7 +30,7 @@
             if ($pass){
                 $passResult = mysqli_fetch_row($pass);
 
-                if ($userPass != $passResult[0]){
+                if (!password_verify($userPass, $passResult[0])){
                     include 'nbfalse.php';
                     ?>
                         <div class="text-center text-white bg-red-500 p-5 fixed w-full bottom-2 z-50">
@@ -34,10 +39,13 @@
                     <?php
                 }
                 else{
+                    $_SESSION['user'] = $userNick;
+                    $_SESSION['status'] = 1;
+
                     include 'nbtrue.php';
                     ?>
                         <div class="text-center text-white bg-green-500 p-4 rounded-r-full fixed left-0 bottom-2 z-50">
-                            Conectado :)
+                            Sesion Iniciada
                         </div>
                     <?php
                 }

@@ -47,6 +47,7 @@ if (isset($_POST['sendAvatar'])){
     header('Location: avatar.php?avatar=0');
   }
 }
+// Si en lugar de agregar un avatar queremos Eliminarlo 
 elseif (isset($_POST['delAvatar'])){
   $idAvatar = $_POST['idAvatar'];
 
