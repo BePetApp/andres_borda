@@ -1,11 +1,3 @@
-<?php 
-    require '../connection.php';
-    
-    $query = "SELECT * FROM avatares";
-    $res = mysqli_query($conn, $query)
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="../../css/reg.css">
+    <link rel="stylesheet" href="Views/css/reg.css">
     <script src="https://kit.fontawesome.com/fe08a25bb7.js" crossorigin="anonymous"></script>
 
     <!-- Google font -->
@@ -59,28 +51,21 @@
                     
                     <div class="flex gap-x-1 gap-y-2 text-center justify-between flex-wrap">
                         
-                    <?php 
-                    // Listamos los avatares con un while
-                        while($row = mysqli_fetch_array($res))
-                        {
-                            echo "<div class=\"p-2 text-center avatar\">";
-                            echo "<input class=\"cursor-pointer\" type=\"radio\" name=\"Reg_av\" value=\"$row[0]\" required>";
-                            echo "<img class=\"mx-auto\" src=\"$row[1]\" alt=\"avatar\"></div>";
-                        }
-                        mysqli_close($conn);
-                    ?>
+                    <!-- Listamos los avatares con un while -->
+                    <?php while($row = $av->fetch_object()): ?>
+                            <div class="p-2 text-center avatar">
+                                <input class="cursor-pointer" type="radio" name="Reg_av" value="<?php echo $row->id?>" required>
+                                <img class="mx-auto" src="<?php echo $row->link?>" alt="avatar">
+                            </div>
+                    <?php endwhile?>
                     </div>
                 </div>
                 <div class="buttons">
                     <!-- <button value="Enviar">Enviar</button> -->
                     <input type="submit" name="Enviar" value="Enviar" class="text-white p-4 bg-red-500 cursor-pointer hover:bg-red-800">
-                    <a href="../../" class="text-white p-4 bg-gray-500 cursor-pointer hover:bg-gray-800">Volver</a>
+                    <a href="index.php?page=Crud" class="text-white p-4 bg-gray-500 cursor-pointer hover:bg-gray-800">Volver</a>
                 </div>
             </form>
         </div>
-    </div>
-    <?php 
-        include './validate_reg.php';
-    ?>
 </body>
 </html>
