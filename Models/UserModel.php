@@ -34,8 +34,7 @@ class Users extends DataBase
     if (!$this->checkIfExists('nickname', $this->nickname))
      {
       // Si verifica tambien, si el email ya está en uso [no se puede repetir en bd]
-      if (!$this->checkIfExists('email', $this->email)) 
-      {
+      if (!$this->checkIfExists('email', $this->email)) {
         $this->connect();
 
         $this->password = password_hash($this->pass, PASSWORD_BCRYPT);
@@ -47,18 +46,17 @@ class Users extends DataBase
 
         // Si no se produce ningun error en la consulta 
         // if ($this->conn->query($sql))
-        if ($sqlPrepare->execute()) 
-        {
-          return 'Usuario Ingresado correctamente :)';
+        if ($sqlPrepare->execute()) {
+          return 1100;
         } else {
-          return 'Error: ' . $this->conn->error;
+          return 1199;
         } 
 
       } else {
-        return 'El email ya se encuentra en uso';
+        return 1133;
       }
     } else {
-      return 'El Nickname ya ha sido tomado';
+      return 1155;
     }
   }
 
@@ -82,9 +80,9 @@ class Users extends DataBase
     $sqlPrepare->bind_param('ssssi', $this->name, $this->last_name, $this->nickname, $this->email, $this->id);
 
     if ($sqlPrepare->execute()) 
-      return true; 
+      return true;
     else
-      return 'Error: ' . $this->conn->error;
+      return false;
   }
 
 
@@ -130,9 +128,17 @@ class Users extends DataBase
     return $users;
   }
 
-  public function showInfo()
+  public function showSearchedUsers($value)
   {
-    echo "{$this->id}| Hola, mi nombre {$this->name} {$this->last_name}. Mi nick es {$this->nickname} y mi correo es {$this->email} :v";
+    $res = $this->preSelect(['id', 'name', 'last_name', 'nickname', 'email'])->where('nickname', 'like', "%$value%")->runQuery();
+    
+    $users = array();
+
+    while ($user = $res->fetch_object(Users::class)) {
+      $users[] = $user;
+    }
+
+    return $users;
   }
 }
 

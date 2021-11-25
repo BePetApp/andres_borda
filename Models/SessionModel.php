@@ -29,22 +29,16 @@ class UserSession extends DataBase
   public function startSession()
   {
     
-    if (!$this->checkIfExists('nickname', $this->nickname)) 
-    {
+    if (!$this->checkIfExists('nickname', $this->nickname)){
       return 'Oops, Usuario inexistente.';
-    }
-    else 
-    {
+    } else {
       // contraseña en la base de datos
       $dbPass = $this->preSelect(['password'])->where('nickname', '=', $this->nickname)->runQuery();
       $dbPass = $dbPass->fetch_row();
 
-      if (!password_verify($this->password, $dbPass[0]))
-      {
+      if (!password_verify($this->password, $dbPass[0])){
         return 'Oops, Contraseña equivocada.';
-      }
-      else
-      {
+      } else {
         $_SESSION['user'] = $this->nickname;
         $_SESSION['status'] = 1;
 
@@ -67,15 +61,18 @@ class UserSession extends DataBase
 
   public static function validateSession()
   {
-    
+    if (!isset($_SESSION['status']) || $_SESSION['status'] != 1){
+      return false;
+    } else {
+      return true;
+    }
   }
 
   public static function homeSessionNav()
   {
-    if (!isset($_SESSION['status']) || $_SESSION['status'] != 1){
+    if (self::validateSession() === false){
       return 'Views/html/navBar/nbfalse.php';
-    }
-    else{
+    }  else{
       return 'Views/html/navBar/nbtrue.php';
     }
   }

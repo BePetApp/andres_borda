@@ -12,12 +12,13 @@ head('CRUD')
     </div>
     <div class="flex justify-between items-center header mx-auto my-4">
       <!-- Opciones -->
-      <a class="py-1 px-2 bg-blue-600 rounded hover:bg-blue-900" href="index.php?page=Crud">RESET</a>
-      <a class="py-1 px-2 bg-purple-600 rounded hover:bg-purple-900" href="index.php?page=CrudAddAv">Añadir/Borrar avatar</a>
-      <a class="py-1 px-2 bg-green-600 rounded hover:bg-green-900" href="index.php?page=CrudAdd">Añadir User</a>
-      <form method="post" autocomplete="off">
+      <a class="py-1 px-2 bg-blue-600 rounded hover:bg-blue-900" href="index.php?page=crud">RESET</a>
+      <a class="py-1 px-2 bg-purple-600 rounded hover:bg-purple-900" href="index.php?page=crudAv">Añadir/Borrar avatar</a>
+      <a class="py-1 px-2 bg-green-600 rounded hover:bg-green-900" href="index.php?page=crudAdd">Añadir User</a>
+      
+      <form method="post" action="index.php?page=crudSearch" autocomplete="off">
         Busca: 
-        <input type="text" name="SearchReg" placeholder="Search" class="p-1 rounded text-gray-500 bg-gray-800 outline-none focus:bg-gray-900 focus:text-white">
+        <input type="text" name="like" placeholder="Search Nick" class="p-1 rounded text-gray-500 bg-gray-800 outline-none focus:bg-gray-900 focus:text-white">
         <button class="py-1 px-2 bg-yellow-500 rounded hover:bg-yellow-800">Enviar</button>
       </form>
     </div>
@@ -42,11 +43,11 @@ head('CRUD')
               <td><?php echo $user->email?></td>
               <td>
                   <!-- se envia el ID del registro a editar por el metodo GET (en la url) -->
-                  <a class="py-1 px-2 bg-yellow-500 rounded hover:bg-yellow-800" href="index.php?page=CrudEdit&Id=<?php echo $user->id?>">Edit</a>
+                  <a class="py-1 px-2 bg-yellow-500 rounded hover:bg-yellow-800" href="index.php?page=crudEdit&Id=<?php echo $user->id?>">Edit</a>
               </td>
               <td>
                   <!-- Enviamos el ID y algunos datos del registro a eliminar -->
-                  <a class="py-1 px-2 bg-red-500 rounded hover:bg-red-800" href="index.php?page=CrudDel&Id=<?php echo $user->id?>">Delete</a>
+                  <a class="py-1 px-2 bg-red-500 rounded hover:bg-red-800" href="index.php?page=crudDel&Id=<?php echo $user->id?>">Delete</a>
               </td>
           </tr>
           <?php endforeach ?>

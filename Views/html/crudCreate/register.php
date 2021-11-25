@@ -18,7 +18,7 @@
 <body>
     <div class="container pb-20 mx-auto">
         <div class="registro mt-2 mx-auto">
-            <form method="post" autocomplete="off">
+            <form action="index.php?page=crudAddCon" method="post" autocomplete="off">
                 <h1><span class="red">Burogu</span> Blog</h1>
                 <div class="formulario">
                     <div>
@@ -63,7 +63,7 @@
                 <div class="buttons">
                     <!-- <button value="Enviar">Enviar</button> -->
                     <input type="submit" name="Enviar" value="Enviar" class="text-white p-4 bg-red-500 cursor-pointer hover:bg-red-800">
-                    <a href="index.php?page=Crud" class="text-white p-4 bg-gray-500 cursor-pointer hover:bg-gray-800">Volver</a>
+                    <a href="index.php?page=crud" class="text-white p-4 bg-gray-500 cursor-pointer hover:bg-gray-800">Volver</a>
                 </div>
             </form>
         </div>

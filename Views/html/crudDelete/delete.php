@@ -20,8 +20,8 @@ head('Eliminar registro');
 		</div>
 		
 		<div class="flex justify-between max-w-md p-2 mx-auto text-white">
-			<a href="index.php?page=CrudDelCon&Id=<?php echo $_GET['Id'] ?>" class="p-4 bg-red-600 rounded hover:bg-red-800">Eliminar</a>
-			<a href="index.php?page=Crud" class="p-4 bg-gray-600 rounded hover:bg-gray-800">Cancelar</a>
+			<a href="index.php?page=crudDelCon&Id=<?php echo $_GET['Id'] ?>" class="p-4 bg-red-600 rounded hover:bg-red-800">Eliminar</a>
+			<a href="index.php?page=crud" class="p-4 bg-gray-600 rounded hover:bg-gray-800">Cancelar</a>
 		</div>
 		</div>
 	</div>
