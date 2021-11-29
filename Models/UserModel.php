@@ -10,13 +10,13 @@ class Users extends DataBase
   // Atributos de usuarios
   public $id;
   public $name;
-  public $last_name;
-  public $nickname;
+  public $lastName;
+  public $nickName;
   public $email;
   public $avatars_id;
   public $pass;
 
-  protected $password;
+  protected $usrPassword;
 
 
   /**
@@ -31,33 +31,29 @@ class Users extends DataBase
   public function createUser()
   {
     // Se comprueba si el Nickname Ya ha sido Tomado [no se puede repetir en bd]
-    if (!$this->checkIfExists('nickname', $this->nickname))
-     {
-      // Si verifica tambien, si el email ya está en uso [no se puede repetir en bd]
-      if (!$this->checkIfExists('email', $this->email)) {
-        $this->connect();
-
-        $this->password = password_hash($this->pass, PASSWORD_BCRYPT);
-
-        $sqlPrepare = $this->conn->prepare("INSERT INTO users (name, last_name, nickname, email, password, avatars_id)
-        VALUES (?, ?, ?, ?, ?, ?)");
-
-        $sqlPrepare->bind_param('sssssi', $this->name, $this->last_name, $this->nickname, $this->email, $this->password, $this->avatars_id);
-
-        // Si no se produce ningun error en la consulta 
-        // if ($this->conn->query($sql))
-        if ($sqlPrepare->execute()) {
-          return 1100;
-        } else {
-          return 1199;
-        } 
-
-      } else {
-        return 1133;
-      }
-    } else {
-      return 1155;
+    if ($this->checkIfExists('nickName', $this->nickName)){
+      return "e205";
     }
+    // Si verifica tambien, si el email ya está en uso [no se puede repetir en bd]
+    if ($this->checkIfExists('email', $this->email)){
+      return "e203";
+    }
+    // Conexion a la base de datos
+    $this->connect();
+
+    // Consulta sql
+    $this->usrPassword = password_hash($this->pass, PASSWORD_BCRYPT);
+    $sqlPrepare = $this->conn->prepare("INSERT INTO users (name, lastName, nickName, email, usrPassword, avatars_id)
+    VALUES (?, ?, ?, ?, ?, ?)");
+    $sqlPrepare->bind_param('sssssi', $this->name, $this->lastName, $this->nickName, $this->email, $this->usrPassword, $this->avatars_id);
+
+    if ($sqlPrepare->execute()) {
+      // Insercion exitosa
+      return "a20";
+    } else {
+      // Error en la insercion
+      return "e209";
+    } 
   }
 
   
@@ -74,10 +70,10 @@ class Users extends DataBase
     $this->connect();
 
     $sqlPrepare = $this->conn->prepare("UPDATE users
-    SET name = ?, last_name = ?, nickname = ?, email = ? 
+    SET name = ?, lastName = ?, nickName = ?, email = ? 
     WHERE id = ?");
 
-    $sqlPrepare->bind_param('ssssi', $this->name, $this->last_name, $this->nickname, $this->email, $this->id);
+    $sqlPrepare->bind_param('ssssi', $this->name, $this->lastName, $this->nickName, $this->email, $this->id);
 
     if ($sqlPrepare->execute()) 
       return true;
@@ -107,6 +103,7 @@ class Users extends DataBase
       return false;
   }
 
+  
   /**
    * Realiza una busqueda en la base de datos y convierte los resultados en objetos UserControl
    * @return Regresa un array de Objetos de la clase __Users__. 
@@ -115,9 +112,9 @@ class Users extends DataBase
   {
     $connection = new DataBase;
     $connection->connect();
-    $connection->table = 'users';
+    $connection->table = 'Users';
 
-    $res = $connection->preSelect(['id', 'name', 'last_name', 'nickname', 'email'])->runQuery();
+    $res = $connection->preSelect(['id', 'name', 'lastName', 'nickName', 'email'])->where('id', '<>', $_SESSION['userId'])->runQuery();
 
     $users = array();
 
@@ -128,9 +125,10 @@ class Users extends DataBase
     return $users;
   }
 
+
   public function showSearchedUsers($value)
   {
-    $res = $this->preSelect(['id', 'name', 'last_name', 'nickname', 'email'])->where('nickname', 'like', "%$value%")->runQuery();
+    $res = $this->preSelect(['id', 'name', 'lastName', 'nickName', 'email'])->where('nickName', 'like', "%$value%")->runQuery();
     
     $users = array();
 
@@ -141,4 +139,3 @@ class Users extends DataBase
     return $users;
   }
 }
-

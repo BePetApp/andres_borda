@@ -5,7 +5,7 @@ require_once 'Models/ConnectionModel.php';
 class Avatars extends DataBase{
 
   // Seleccionamos la tabla en la que se ejecutarán las consultas
-  public $table =  'avatars';
+  public $table =  'Avatars';
 
   // Propiedades de la clase
   public $id;
@@ -48,13 +48,13 @@ class Avatars extends DataBase{
     // Realizamos la insercion en la base de datos
     $conection = new DataBase;
     $conection->connect();
-    $sql = $conection->conn->prepare("INSERT INTO avatars (link) VALUES (?)");
+    $sql = $conection->conn->prepare("INSERT INTO Avatars (link) VALUES (?)");
     $sql->bind_param('s', $path);
 
     if ($sql->execute()) {
-      return 6600;
+      return "a50";
     } else {
-      return 6699;
+      return "e509";
     }
   }
 
@@ -69,36 +69,34 @@ class Avatars extends DataBase{
     que el id que se está eliminando)
     */
     $this->connect();
-    $idFirstAvatar = $this->conn->query("SELECT id FROM avatars WHERE id != $idAvatar LIMIT 1");
+    $idFirstAvatar = $this->conn->query("SELECT id FROM Avatars WHERE id != $idAvatar LIMIT 1");
     $idFirstAvatar = $idFirstAvatar->fetch_row();
 
     // Consulta de reemplazo 
-    $replace = $this->conn->prepare("UPDATE users SET avatars_id = ? WHERE avatars_id = ?");
+    $replace = $this->conn->prepare("UPDATE Users SET Avatars_id = ? WHERE Avatars_id = ?");
     $replace->bind_param('ii', $idFirstAvatar[0], $idAvatar);
 
-    if ($replace->execute()){
+    // Se hay algún fallo en la consulta retornamos el codigo de error:
+    if ($replace->execute() == false){
+      return "e603";
+    }
+    
+    // Obetenemos el enlace del avatar para poder eliminarlo
+    $imgLink = $this->conn->query("SELECT link FROM Avatars WHERE id = $idAvatar");
+    $imgLinkRes = $imgLink->fetch_row(); // <- en la posicion 0 del array se encuentra el 'Path' de la imagen
 
-      // Obetenemos el enlace del avatar para poder eliminarlo
-      $imgLink = $this->conn->query("SELECT link FROM avatars WHERE id = $idAvatar");
-      $imgLinkRes = $imgLink->fetch_row(); // <- en la posicion 0 del array se encuentra el 'Path' de la imagen
+    // Elimina de la tabla el avatar con el id $idAvatar(id a eliminar)
+    $removeAvatar = $this->conn->prepare("DELETE FROM Avatars WHERE id = ?");
+    $removeAvatar->bind_param('i', $idAvatar);
 
-      // Elimina de la tabla el avatar con el id $idAvatar(id a eliminar)
-      $removeAvatar = $this->conn->prepare("DELETE FROM avatars WHERE id = ?");
-      $removeAvatar->bind_param('i', $idAvatar);
-      
-      if ($removeAvatar->execute()){
-        // Escenario de exito:
-
-        // Se elimina de la carpeta del proyecto el archivo del avatar
-        unlink($imgLinkRes[0]);
-        return 6655;
-      }else{
-        // Escenario de error:
-        return 6679;
-      }  
-    } else {
-      // Si la consulta de reemplazo no funciona:
-      return 6633;
+    if ($removeAvatar->execute()){
+      // Escenario de exito:
+      // Se elimina de la carpeta del proyecto el archivo del avatar
+      unlink($imgLinkRes[0]);
+      return "a60";
+    }else{
+      // Escenario de error:
+      return "e609";
     }
   }
 
@@ -110,7 +108,7 @@ class Avatars extends DataBase{
   public static function showAvatars()
   {
     $conection = new DataBase;
-    $conection->table = "avatars";
+    $conection->table = "Avatars";
 
     $sql = $conection->preSelect()->runQuery();
 

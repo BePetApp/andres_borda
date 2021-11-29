@@ -150,7 +150,7 @@
             <div class="test w-full h-full flex flex-row items-center justify-center">
                 <div class="flex-1" style="margin: 5vw; z-index: 999999;">
                     <h2 class="text-3xl">Log <span class="text-red-500 font-semibold">In</span></h2>
-                    <form method="post" autocomplete="off">
+                    <form action="index.php?page=logIn" method="post" autocomplete="off">
                         <div class="flex flex-col gap-2 my-3">
                             <label for="">Nickname</label>
                             <input type="text" name="Log_Nick" class="text-black p-1" required>
@@ -180,6 +180,9 @@
             </div>
         </div>
     </div>
+    
+    <!-- Mensaje -->
+    <?php Messages::showMessage() ?>
 </body>
 <script> 
     const button = document.getElementById('buttonmodal')

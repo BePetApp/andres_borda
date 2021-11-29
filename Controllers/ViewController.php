@@ -22,15 +22,17 @@ class Views
   }
 
 
-  public function home()
+  public function logIn()
   {
     session_start();
-    if (isset($_POST['Log_Enter']) && !isset($_SESSION['status'])){
-      $userSession_ = new UserSession($_POST['Log_Nick'], $_POST['Log_Pass']);
-      $userSession_->startSession();
-      header('Location: index.php');
-    }
+    $userSession_ = new UserSession($_POST['Log_Nick'], $_POST['Log_Pass']);
+    $mess = $userSession_->startSession();
+    header("Location: index.php?mess=$mess");
+  }
 
+
+  public function home()
+  {
     $navBar = UserSession::homeSessionNav();
 
     include_once 'Views/html/home.php';
@@ -49,7 +51,6 @@ class Views
     $datas = Users::showUsers();
     
     include_once 'Views/html/crud.php';
-    Messages::showMessage();
   }
 
 
@@ -69,9 +70,9 @@ class Views
   public function crudEdit()
   {
     $udUser =  new DataBase;
-    $udUser->table = 'users';
+    $udUser->table = 'Users';
 
-    $udUser= $udUser->preSelect(['name', 'last_name', 'email', 'nickname'])->where('id', '=', $_GET['Id'])->runQuery();
+    $udUser= $udUser->preSelect(['name', 'lastName', 'email', 'nickName'])->where('id', '=', $_GET['Id'])->runQuery();
     $udUser = $udUser->fetch_object();
     
     include_once 'Views/html/crudUpdate/edit.php';
@@ -84,14 +85,14 @@ class Views
 
     $edit->id= $_POST['Id'];
     $edit->name = $_POST['name'];
-    $edit->last_name= $_POST['lastname'];
-    $edit->nickname= $_POST['nick'];
-    $edit->email= $_POST['email'];
+    $edit->lastName = $_POST['lastname'];
+    $edit->nickName = $_POST['nick'];
+    $edit->email = $_POST['email'];
 
     if ($edit->updateUser() === true) {
-      $mess = 3300;
+      $mess = "a40";
     } else {
-      $mess = 3399;
+      $mess = "e409";
     }
     header("Location: index.php?page=Crud&mess=$mess");
   }
@@ -102,7 +103,7 @@ class Views
     $delUser = new DataBase;
     $delUser->table = 'users';
 
-    $delUser = $delUser->preSelect(['name', 'last_name', 'email'])->where('id', '=' ,$_GET['Id'])->runQuery();
+    $delUser = $delUser->preSelect(['name', 'lastName', 'email'])->where('id', '=' ,$_GET['Id'])->runQuery();
     $delUser = $delUser->fetch_object();
 
     include_once 'Views/html/crudDelete/delete.php';
@@ -115,9 +116,9 @@ class Views
     $del->id = $_GET['Id'];
     
     if ($del->deleteUser() !== false)
-      $mess = 2200;
+      $mess = "a30";
     else
-      $mess = 2299;
+      $mess = "e309";
 
     header("Location: index.php?page=Crud&mess=$mess");
   }
@@ -126,12 +127,11 @@ class Views
   public function crudAdd()
   {
     $av = new DataBase;
-    $av->table = 'avatars';
+    $av->table = 'Avatars';
 
     $av = $av->preSelect()->runQuery();
 
     include_once 'Views/html/crudCreate/register.php';
-    Messages::showMessage();
   }
 
   public function crudAddCon()
@@ -140,8 +140,8 @@ class Views
       $user = new Users;
 
       $user->name = $_POST['Reg_name'];
-      $user->last_name = $_POST['Reg_apl'];
-      $user->nickname = $_POST['Reg_Nick'];
+      $user->lastName = $_POST['Reg_apl'];
+      $user->nickName = $_POST['Reg_Nick'];
       $user->email = $_POST['Reg_Email'];
       $user->pass = $_POST['Reg_Pass'];
       $user->avatars_id = $_POST['Reg_av'];
@@ -149,7 +149,7 @@ class Views
       $mess = $user->createUser();
       header("Location: index.php?page=crudAdd&mess=$mess");
     } else {
-      header("Location: index.php?page=crudAdd&mess=1111");
+      header("Location: index.php?page=crudAdd&mess=e100");
     }
   }
 
@@ -159,7 +159,6 @@ class Views
     $avatars = Avatars::showAvatars();
 
     include_once 'Views/html/crudCreate/avatar.php';
-    Messages::showMessage();
   }
 
 

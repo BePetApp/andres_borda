@@ -12,7 +12,7 @@ head('Eliminar registro');
 		<!-- Se muetra el nombre y el correo en un div -->
 		<div class="bg-red-900 w-full p-3 rounded-lg">
 			<p class="text-3xl text-center text-white font bold">
-				<?php echo $delUser->name . ' ' . $delUser->last_name?>
+				<?php echo $delUser->name . ' ' . $delUser->lastName?>
 			</p>
 			<p class="text-xl text-center text-gray-300 font bold">
 				Email: <span class="text-gray-400"><?php echo $delUser->email ?></span>

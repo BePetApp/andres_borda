@@ -47,5 +47,8 @@
       </div>
     </form>
   </div>
+  
+  <!-- Mensaje -->
+  <?php Messages::showMessage() ?>
 </body>
 </html>

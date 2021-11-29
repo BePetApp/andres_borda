@@ -3,7 +3,7 @@ class DataBase
 {
   private $host = "127.0.0.1";
   private $user = "root";
-  private $database = "bepet_blog";
+  private $database = "Burogu_Blog";
   private $port = 3308;
   private $socket = "127.0.0.1:3308";
 

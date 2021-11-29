@@ -38,8 +38,8 @@ head('CRUD')
           
           <?php foreach ($datas as $user):?>
           <tr>
-              <td><?php echo $user->name . ' ' . $user->last_name?></td>
-              <td><?php echo $user->nickname?></td>
+              <td><?php echo $user->name . ' ' . $user->lastName?></td>
+              <td><?php echo $user->nickName?></td>
               <td><?php echo $user->email?></td>
               <td>
                   <!-- se envia el ID del registro a editar por el metodo GET (en la url) -->
@@ -55,5 +55,7 @@ head('CRUD')
       </table>               
     </div>
   </div>
+  <!-- Mensaje -->
+  <?php Messages::showMessage() ?>
 </body>
 </html>

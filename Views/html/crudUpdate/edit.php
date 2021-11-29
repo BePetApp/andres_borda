@@ -29,7 +29,7 @@ head('Eliminar registro');
 				</div>
 				<div>
 					<p>Digita tu apellido: </p>
-					<input type="text" name="lastname" value="<?php echo $udUser->last_name?>" class="w-full mt-2 p-1 rounded text-gray-500 bg-gray-800 focus:bg-gray-900 focus:text-white">
+					<input type="text" name="lastname" value="<?php echo $udUser->lastName?>" class="w-full mt-2 p-1 rounded text-gray-500 bg-gray-800 focus:bg-gray-900 focus:text-white">
 				</div>
 			</div>
 
@@ -38,7 +38,7 @@ head('Eliminar registro');
 			<div class="grid grid-cols-1 gap-9 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2 my-8">
 				<div>
 					<p>Digita tu Nick: </p>
-					<input type="text" name="nick" value="<?php echo $udUser->nickname?>" class="w-full mt-2 p-1 rounded text-gray-500 bg-gray-800 focus:bg-gray-900 focus:text-white" required>
+					<input type="text" name="nick" value="<?php echo $udUser->nickName?>" class="w-full mt-2 p-1 rounded text-gray-500 bg-gray-800 focus:bg-gray-900 focus:text-white" required>
 				</div>
 				<div>
 					<p>Digita tu correo: </p>

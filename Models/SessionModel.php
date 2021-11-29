@@ -8,14 +8,12 @@ class UserSession extends DataBase
   protected $password;
 
   // Nombre de la tabla en la que se trabajará
-  public $table = 'users';
+  public $table = 'Users';
 
   /**
    * @param string $nick Representa el nickname del usuario
    * @param string $pass Representa la contraseña del usuario
    * 
-   * @return string Retorna una cadena en caso de error
-   * @return bool Retorna true si la contraseña coincide con el nickname 
    */
   public function __construct($nick, $pass)
   {
@@ -25,26 +23,33 @@ class UserSession extends DataBase
 
   /**
    * Valida las credenciales pasadas a la clase ($nick & $pass)
+   * @return int Retorna una cadena en caso de error
+   * @return int Retorna true si la contraseña coincide con el nickname 
    */
   public function startSession()
   {
     
-    if (!$this->checkIfExists('nickname', $this->nickname)){
-      return 'Oops, Usuario inexistente.';
-    } else {
-      // contraseña en la base de datos
-      $dbPass = $this->preSelect(['password'])->where('nickname', '=', $this->nickname)->runQuery();
-      $dbPass = $dbPass->fetch_row();
-
-      if (!password_verify($this->password, $dbPass[0])){
-        return 'Oops, Contraseña equivocada.';
-      } else {
-        $_SESSION['user'] = $this->nickname;
-        $_SESSION['status'] = 1;
-
-        return true;
-      }
+    if (!$this->checkIfExists('nickName', $this->nickname)){
+      return "e105";
     }
+
+    // contraseña en la base de datos
+    $dbPass = $this->preSelect(['usrPassword', 'id', 'status', 'rol'])->where('nickname', '=', $this->nickname)->runQuery();
+    $dbPass = $dbPass->fetch_row();
+
+    if (!password_verify($this->password, $dbPass[0])){
+      return "e100";
+    }
+
+    if ($dbPass[2] == 1) {
+      return "e991";
+    }
+
+    $_SESSION['user'] = $this->nickname;
+    $_SESSION['userId'] = $dbPass[1];
+    $_SESSION['rol'] = $dbPass[3];
+
+    return "a10";
   }
 
   /**
@@ -61,19 +66,25 @@ class UserSession extends DataBase
 
   public static function validateSession()
   {
-    if (!isset($_SESSION['status']) || $_SESSION['status'] != 1){
-      return false;
-    } else {
-      return true;
+    if (!isset($_SESSION['rol'])){
+      return 0;
+    } 
+    if ($_SESSION['rol'] == 0) {
+      return 1;
+    } elseif ($_SESSION['rol'] == 1){
+      return 2;
     }
   }
 
   public static function homeSessionNav()
   {
-    if (self::validateSession() === false){
+    session_start();
+    if (self::validateSession() === 0){
       return 'Views/html/navBar/nbfalse.php';
-    }  else{
+    } elseif (self::validateSession() === 1){
       return 'Views/html/navBar/nbtrue.php';
+    } elseif (self::validateSession() === 2){
+      return 'Views/html/navBar/nbAdmin.php';
     }
   }
 }

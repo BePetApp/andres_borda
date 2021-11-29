@@ -8,6 +8,7 @@
         <option value="#">Home</option>
         <option value="#">Articles</option>
         <option value="#">Profile</option>
+        <option value="index.php?page=crud">Crud</option>
         <option value="index.php?page=logOut">Log Out</option>
     </select>     
 </div>
