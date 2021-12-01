@@ -70,10 +70,10 @@ class Users extends DataBase
     $this->connect();
 
     $sqlPrepare = $this->conn->prepare("UPDATE users
-    SET name = ?, lastName = ?, nickName = ?, email = ? 
+    SET name = ?, lastName = ?, nickName = ?, email = ?, Avatars_id = ? 
     WHERE id = ?");
 
-    $sqlPrepare->bind_param('ssssi', $this->name, $this->lastName, $this->nickName, $this->email, $this->id);
+    $sqlPrepare->bind_param('ssssii', $this->name, $this->lastName, $this->nickName, $this->email, $this->avatars_id, $this->id);
 
     if ($sqlPrepare->execute()) 
       return true;

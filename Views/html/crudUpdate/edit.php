@@ -45,9 +45,28 @@ head('Eliminar registro');
 					<input type="email" name="email" value="<?php echo $udUser->email?>" class="w-full mt-2 p-1 rounded text-gray-500 bg-gray-800 focus:bg-gray-900 focus:text-white" required>
 				</div>
 			</div>
+
+			<!-- Avatares -->
+			<div class="flex gap-x-1 gap-y-2 text-center justify-between p-4 flex-wrap">                   
+			<?php while($row = $av->fetch_object()): ?>
+				<?php if ($udUser->Avatars_id == $row->id) :?>
+					<div class="p-2 text-center avatar">
+							<input class="cursor-pointer" type="radio" name="avId" value="<?php echo $row->id?>" checked required>
+							<img class="mx-auto" src="<?php echo $row->link?>" alt="avatar">
+					</div>
+				<?php else:?>
+					<div class="p-2 text-center avatar">
+							<input class="cursor-pointer" type="radio" name="avId" value="<?php echo $row->id?>" required>
+							<img class="mx-auto" src="<?php echo $row->link?>" alt="avatar">
+					</div>
+			<?php 
+			endif;
+			endwhile;
+			?>
+			</div>
 			
 			<!-- Botonoes de accion -->
-			<div class="flex flex-row justify-between">
+			<div class="flex flex-row-reverse justify-between">
 				<button type="submit" name="send" class="p-4 bg-green-800 rounded hover:bg-green-900">Actualizar</button>
 				<a href="index.php?page=crud" class="p-4 bg-gray-600 rounded hover:bg-gray-800">Cancelar</a>
 			</div>

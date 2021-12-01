@@ -39,12 +39,12 @@ class Views
   }
 
 
-// ---------------------------- Crud y sus depensencias ----------------------------------
+// ---------------------------- Crud y sus dependencias ----------------------------------
 
   public function crud()
   {
     session_start();
-    if (UserSession::validateSession() === false){
+    if (UserSession::validateSession() === 0 || UserSession::validateSession() === 1){
       header('Location: index.php');
     }
 
@@ -71,9 +71,12 @@ class Views
   {
     $udUser =  new DataBase;
     $udUser->table = 'Users';
-
-    $udUser= $udUser->preSelect(['name', 'lastName', 'email', 'nickName'])->where('id', '=', $_GET['Id'])->runQuery();
+    $udUser= $udUser->preSelect(['name', 'lastName', 'email', 'nickName', 'Avatars_id'])->where('id', '=', $_GET['Id'])->runQuery();
     $udUser = $udUser->fetch_object();
+
+    $av = new DataBase;
+    $av->table = 'Avatars';
+    $av = $av->preSelect()->runQuery();
     
     include_once 'Views/html/crudUpdate/edit.php';
   }
@@ -88,6 +91,7 @@ class Views
     $edit->lastName = $_POST['lastname'];
     $edit->nickName = $_POST['nick'];
     $edit->email = $_POST['email'];
+    $edit->avatars_id = $_POST['avId'];
 
     if ($edit->updateUser() === true) {
       $mess = "a40";
