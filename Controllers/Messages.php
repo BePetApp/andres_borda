@@ -1,5 +1,7 @@
 <?php
 
+namespace Controllers;
+
 class Messages{
   
   public static $messages =  array(

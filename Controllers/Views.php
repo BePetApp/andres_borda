@@ -1,8 +1,11 @@
 <?php
-include_once 'Models/UserModel.php';
-include_once 'Models/SessionModel.php';
-include_once 'Controllers/MessageController.php';
-include_once 'Models/AvatarModel.php';
+
+namespace Controllers;
+
+use Models\Users;
+use Models\UserSession;
+use Models\DataBase;
+use Models\Avatars;
 
 class Views
 {

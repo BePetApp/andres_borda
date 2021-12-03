@@ -1,5 +1,8 @@
 <?php 
-include_once 'Models/ConnectionModel.php';
+
+namespace Models;
+
+use Models\DataBase;
 
 class UserSession extends DataBase
 {

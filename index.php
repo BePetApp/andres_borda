@@ -1,5 +1,6 @@
 <?php
+require_once 'vendor/autoload.php';
 
-include_once 'Controllers/ViewController.php';
+use Controllers\Views;
 
-Views::View();
+Views::view();

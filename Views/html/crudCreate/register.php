@@ -1,3 +1,6 @@
+<?php 
+use Controllers\Messages;
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

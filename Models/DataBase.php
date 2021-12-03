@@ -1,4 +1,9 @@
 <?php 
+
+namespace Models;
+
+use mysqli;
+
 class DataBase
 {
   private $host = "127.0.0.1";

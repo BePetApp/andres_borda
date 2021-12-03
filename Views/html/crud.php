@@ -1,4 +1,5 @@
 <?php 
+use Controllers\Messages;
 include_once 'Views/html/head.php'; 
 head('CRUD') 
 ?> 

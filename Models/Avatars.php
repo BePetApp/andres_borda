@@ -1,6 +1,8 @@
 <?php 
-require_once 'Models/ConnectionModel.php';
 
+namespace Models;
+
+use Models\DataBase;
 
 class Avatars extends DataBase{
 
