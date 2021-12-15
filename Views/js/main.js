@@ -1,6 +1,8 @@
 $(document).ready( function () {
   $('#dataTable').dataTable({
     serverSide: true,
+    processing: true,
+    paging: true,
     ajax:  {
       url: 'index.php?page=usersJson',
       type: 'POST'

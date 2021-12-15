@@ -5,22 +5,22 @@ head('CRUD')
 ?> 
 <body>
   <div class="container mx-auto text-white">
-    <div class="flex justify-between items-center header mx-auto my-4">
+    <div class="flex justify-between items-center header mx-auto my-2">
       <!-- Encabezado -->
       <div>
         <h2 class="text-3xl py-2">Lista de Registros <span class="italic text-gray-500 duration-300 hover:text-red-500"><a href="index.php">Blog Burogu</a></span></h2>
       </div>
     </div>
-    <div class="flex justify-between items-center header mx-auto my-4">
+    <div class="flex justify-between items-center header mx-auto my-2">
       <!-- Opciones -->
       <a class="py-1 px-2 bg-purple-600 rounded hover:bg-purple-900" href="index.php?page=crudAv">Añadir/Borrar avatar</a>
       <a class="py-1 px-2 bg-green-600 rounded hover:bg-green-900" href="index.php?page=crudAdd">Añadir User</a>
       
     </div>
     <!-- Div contenedor de la tabla -->
-    <div class="flex flex-col items-center justify-center gap-2 flex-wrap"> 
+    <div class="flex flex-col items-center justify-center flex-wrap"> 
       <!-- Tabla que listará los datos extraidos de la base de datos -->
-      <table id="dataTable" class="data-table ">
+      <table id="dataTable" class="data-table nowrap">
       <thead>
           <tr>
               <th>Nombre</th>

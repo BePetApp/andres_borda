@@ -135,6 +135,8 @@ class Users extends DataBase
     // valores que necesitamos para la consulta
     $dbCols = ['Name', 'nickName', 'email'];
     $search = $_POST['search']['value'];
+    $limit =  $_POST['length'];
+    $offset = $_POST['start'];
 
     // recordsTotal
     $sql = "SELECT count(id) FROM Users";
@@ -144,7 +146,6 @@ class Users extends DataBase
     $orderColumn = $_POST['order'][0]['column'];
     $orderColumn = $dbCols[$orderColumn];
     $orderDir = $_POST['order'][0]['dir'];
-
     $orderBy = "ORDER BY " . $orderColumn . " ". $orderDir;
 
     // consulta
@@ -158,15 +159,18 @@ class Users extends DataBase
     $sql .= $orderBy;
     $datas = $this->conn->query($sql);
 
-    // while ($a = $datas->fetch_assoc()) {
-    //   $data[] = $a;
-    // }
-    $data = $datas->fetch_all();
+    $data = $datas->fetch_all(); // data
+    $recordsTotal = (int) $recTotal->fetch_row()[0]; //recordsTotal
+    $recordsFiltered = $recordsTotal; //recordsFilteres
+
+
+
+    // json
     echo json_encode([
-      'data' => $data,
       'draw' => (int) $_POST['draw'],
-      'recordsTotal' => (int) $recTotal->fetch_row()[0],
-      'recordsFiltered' => count($data)
+      'recordsTotal' => $recordsTotal,
+      'recordsFiltered' => $recordsFiltered,
+      'data' => array_slice($data, $offset, $limit)
     ]);
   }
 

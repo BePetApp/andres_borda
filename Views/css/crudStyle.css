@@ -22,6 +22,8 @@ body {
 }
 
 .data-table{
+    table-layout: auto;
+    width: 100%;
     border-collapse: collapse;
     font-size: 0.9em;
     min-width: 450px;
@@ -87,7 +89,10 @@ label {
 .dataTables_wrapper .dataTables_length select:hover,
 .dataTables_wrapper .dataTables_length select:focus{
     background-color: #181818;
+}
 
+.dataTables_wrapper .dataTables_info {
+    color: #bdbdbd;
 }
 
 /* vatares: 
