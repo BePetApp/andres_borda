@@ -11,6 +11,7 @@ function head($title){
         <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 
         <!-- Css -->
+        <link href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
         <link rel="stylesheet" href="Views/css/crudStyle.css">
         <title><?php echo $title ?></title>
     </head>

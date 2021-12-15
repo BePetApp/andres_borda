@@ -128,6 +128,48 @@ class Users extends DataBase
   }
 
 
+  public function usersJson()
+  {
+    $this->connect();
+
+    // valores que necesitamos para la consulta
+    $dbCols = ['Name', 'nickName', 'email'];
+    $search = $_POST['search']['value'];
+
+    // recordsTotal
+    $sql = "SELECT count(id) FROM Users";
+    $recTotal = $this->conn->query($sql);
+
+    // Order by 
+    $orderColumn = $_POST['order'][0]['column'];
+    $orderColumn = $dbCols[$orderColumn];
+    $orderDir = $_POST['order'][0]['dir'];
+
+    $orderBy = "ORDER BY " . $orderColumn . " ". $orderDir;
+
+    // consulta
+    $sql = "SELECT id, concat(name, ' ', lastName) as Name, nickname, email FROM Users WHERE ";
+
+    for ($i=0; $i <= 2; $i++) { 
+      $sql .= "$dbCols[$i] LIKE '%$search%' OR ";
+    }
+    
+    $sql = substr($sql, 0, -3);
+    $sql .= $orderBy;
+    $datas = $this->conn->query($sql);
+
+    // while ($a = $datas->fetch_assoc()) {
+    //   $data[] = $a;
+    // }
+    $data = $datas->fetch_all();
+    echo json_encode([
+      'data' => $data,
+      'draw' => (int) $_POST['draw'],
+      'recordsTotal' => (int) $recTotal->fetch_row()[0],
+      'recordsFiltered' => count($data)
+    ]);
+  }
+
   public function showSearchedUsers($value)
   {
     $res = $this->preSelect(['id', 'name', 'lastName', 'nickName', 'email'])->where('nickName', 'like', "%$value%")->runQuery();

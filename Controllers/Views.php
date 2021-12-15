@@ -42,6 +42,13 @@ class Views
   }
 
 
+
+  public function usersJson()
+  {
+    $users = new Users;
+    $users->usersJson();
+  }
+
 // ---------------------------- Crud y sus dependencias ----------------------------------
 
   public function crud()
@@ -53,7 +60,7 @@ class Views
 
     $datas = Users::showUsers();
     
-    include_once 'Views/html/crud.php';
+    include_once 'Views/html/crudDT.php';
   }
 
 
