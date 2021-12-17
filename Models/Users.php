@@ -139,31 +139,23 @@ class Users extends DataBase
     $offset = $_POST['start'];
 
     // recordsTotal
-    $sql = "SELECT count(id) FROM Users";
-    $recTotal = $this->conn->query($sql);
+    $recTotal = $this->preSelect(['count(id)'])->runQuery();
 
     // Order by 
     $orderColumn = $_POST['order'][0]['column'];
     $orderColumn = $dbCols[$orderColumn];
     $orderDir = $_POST['order'][0]['dir'];
-    $orderBy = "ORDER BY " . $orderColumn . " ". $orderDir;
 
     // consulta
-    $sql = "SELECT id, concat(name, ' ', lastName) as Name, nickname, email FROM Users WHERE ";
+    $data = $this
+    ->preSelect(['id', "concat(name, ' ', lastName) as Name", 'nickname', 'email'])
+    ->multipleWhere($dbCols, "LIKE", ["%$search%", "%$search%", "%$search%"], 0)
+    ->orderBy($orderColumn, $orderDir)
+    ->runQuery();
 
-    for ($i=0; $i <= 2; $i++) { 
-      $sql .= "$dbCols[$i] LIKE '%$search%' OR ";
-    }
-    
-    $sql = substr($sql, 0, -3);
-    $sql .= $orderBy;
-    $datas = $this->conn->query($sql);
-
-    $data = $datas->fetch_all(); // data
+    $data = $data->fetch_all(); // data
     $recordsTotal = (int) $recTotal->fetch_row()[0]; //recordsTotal
-    $recordsFiltered = $recordsTotal; //recordsFilteres
-
-
+    $recordsFiltered = count($data); //recordsFiltered
 
     // json
     echo json_encode([

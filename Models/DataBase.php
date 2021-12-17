@@ -78,21 +78,49 @@ class DataBase
    * 
    * @param string $field_1 Campo que se va a comparar
    * @param string $operator Operador que se desea emplear ( =, <>, like)
-   * @param mixed $field_2 Valor. Puede ser string o integer
+   * @param mixed $equls Valor. Puede ser string o integer
    * 
    * @return Retorna una propiedad de tipo string para ejecutarse con el metodo ___runQuery()___
    */
-  public function where(string $field_1, string $operator, $field_2)
+  public function where(string $field_1, string $operator, $equals)
   {
-    if (gettype($field_2) == 'integer')
-    {
-      $this->sql = $this->sql . " WHERE {$field_1} {$operator} {$field_2}";
+    $this->sql .=  " WHERE {$field_1} {$operator}";
+    $this->sql .= gettype($equals) == 'integer' ? " {$equals}" : " '{$equals}'";  
+    return $this;
+  }
+
+  /**
+   * Complementa el metodo ___preSelect()__. Representa una sentencia _WHERE_
+   * 
+   * @param array $fields Arreglo con los campos que se desean consultar
+   * @param string $operator Operador que se desea emplear ( =, <>, like)
+   * @param array $equal Arreglo con los valores de igualdad para los campos del array $fields. Ambos arreglos deben tener la misma longitud y $fields[i] debe corresponder a $equal[$i]
+   * @param int $or 0 = OR, 1 = AND
+   * 
+   * @return Retorna una propiedad de tipo string para ejecutarse con el metodo ___runQuery()___
+   */
+  public function multipleWhere(array $fields, string $operator, array $equal, int $or){
+    $this->sql .= " WHERE";
+    for ($i=0; $i < count($fields); $i++) { 
+      $this->sql .= " {$fields[$i]} {$operator}";
+      $this->sql .=  gettype($equal[$i]) == 'integer' ? " $equal[$i]" : " '{$equal[$i]}'";
+      $this->sql .=  $or == 0 ? " OR " : " AND ";
     }
-    else
-    {
-      $this->sql = $this->sql . " WHERE {$field_1} {$operator} '{$field_2}'";
-    }
-    
+    $this->sql = $or = 0 ? substr($this->sql, 0, -3) : substr($this->sql, 0, -4);
+    return $this;
+  }
+
+  /**
+   * Complementa el metodo ___preSelect()__. Representa una sentencia _ORDER BY_
+   * 
+   * @param string $column Campo mediante el cual se realizará la ordenamiento
+   * @param string $direction Dirección del ordenamiento ASC o DESC
+   * 
+   * @return Retorna una propiedad de tipo string para ejecutarse con el metodo ___runQuery()___
+   */
+  public function orderBy(string $column, string $direction)
+  {
+    $this->sql .= "ORDER BY {$column} {$direction}";
     return $this;
   }
 

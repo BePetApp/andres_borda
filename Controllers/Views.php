@@ -58,7 +58,7 @@ class Views
       header('Location: index.php');
     }
 
-    $datas = Users::showUsers();
+    // $datas = Users::showUsers();
     
     include_once 'Views/html/crudDT.php';
   }
