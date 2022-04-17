@@ -110,6 +110,7 @@ class Index extends Component
 
     public function updateProduct()
     {
+        $this->focusedProduct->slug = Str::slug($this->focusedProduct->name);
         $this->validate();
         try {
             $this->focusedProduct->slug = Str::slug($this->focusedProduct->name);
